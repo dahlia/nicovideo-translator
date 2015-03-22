@@ -3,7 +3,8 @@ module Main (main) where
 import Data.Char (toLower)
 import Data.LanguageCodes (ISO639_1(EN), fromChars)
 import Data.Text (pack, unpack)
-import NicovideoTranslator (translate)
+import qualified Data.Text as T
+import NicovideoTranslator (translateMultiple)
 import System.IO.Error (catchIOError)
 import System.Locale.SetLocale (Category(LC_CTYPE), setLocale)
 
@@ -20,5 +21,5 @@ main :: IO ()
 main = do
     lang <- catchIOError language (\_ -> return EN)
     contents <- getContents
-    translated <- translate lang $ pack contents
-    putStr $ unpack translated
+    translated <- translateMultiple lang $ T.lines $ pack contents
+    putStr $ unpack $ T.unlines translated

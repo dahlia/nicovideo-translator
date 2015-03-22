@@ -1,12 +1,14 @@
 module Main (main) where
 
 import Data.Char (toLower)
+import System.IO.Error (catchIOError)
+
 import Data.LanguageCodes (ISO639_1(EN), fromChars)
 import Data.Text (pack, unpack)
 import qualified Data.Text as T
-import NicovideoTranslator (translateMultiple)
-import System.IO.Error (catchIOError)
 import System.Locale.SetLocale (Category(LC_CTYPE), setLocale)
+
+import NicovideoTranslator.Translate (translateMultiple)
 
 language :: IO ISO639_1
 language = do

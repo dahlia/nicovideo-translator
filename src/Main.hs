@@ -4,11 +4,10 @@ import Data.Char (toLower)
 import System.IO.Error (catchIOError)
 
 import Data.LanguageCodes (ISO639_1(EN), fromChars)
-import Data.Text (pack, unpack)
-import qualified Data.Text as T
+import Network.Wai.Handler.Warp (run)
 import System.Locale.SetLocale (Category(LC_CTYPE), setLocale)
 
-import NicovideoTranslator.Translate (translateMultiple)
+import NicovideoTranslator.Proxy (app)
 
 language :: IO ISO639_1
 language = do
@@ -22,6 +21,4 @@ language = do
 main :: IO ()
 main = do
     lang <- catchIOError language (\_ -> return EN)
-    contents <- getContents
-    translated <- translateMultiple lang $ T.lines $ pack contents
-    putStr $ unpack $ T.unlines translated
+    run 80 (app lang)

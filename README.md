@@ -30,6 +30,8 @@ you watch Nico Nico videos.  You can invoke the proxy server using CLI
 (you probably need administrator permission to listen 80 port):
 
     $ nicovideo-translator
+    Running on http://0.0.0.0:80/ (Press ^C to quit)
+    Upstream: msg.nicovideo.jp (202.248.110.173)
 
 You can terminate the server by pressing Ctrl-C.
 
@@ -37,7 +39,7 @@ You can terminate the server by pressing Ctrl-C.
 Open source
 -----------
 
-It's written by [Hong Minhee][2], and distributed under [AGPLv3[].
+It's written by [Hong Minhee][2], and distributed under [AGPLv3][].
 You can find the source code from the [Git repository][3]:
 
     $ git clone git://github.com/dahlia/nicovideo-translator

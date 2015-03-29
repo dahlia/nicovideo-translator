@@ -40,6 +40,7 @@ executable nicovideo-translator
   hs-source-dirs:      src
   main-is:             Main.hs
   build-depends:       base       >=4.7     && <4.8,
+                       dns        >=1.4.4   && <1.5.0,
                        iso639,
                        nicovideo-translator,
                        setlocale  >=1.0.0.2 &&<1.1.0.0,

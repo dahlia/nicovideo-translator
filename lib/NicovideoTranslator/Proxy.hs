@@ -45,6 +45,7 @@ defaultHost = "msg.nicovideo.jp"
 
 hoppishHeaders :: Set (CI B.ByteString)
 hoppishHeaders = fromList [ "connection"
+                          , "content-encoding"
                           , "keep-alive"
                           , "proxy-authenticate"
                           , "proxy-authorization"

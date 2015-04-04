@@ -1,6 +1,12 @@
 Nico Nico Douga (ニコニコ動画) Comment Translator
 =================================================
 
+[![Build Status][0]][1]
+
+[0]: https://travis-ci.org/dahlia/nicovideo-translator.svg
+[1]: https://travis-ci.org/dahlia/nicovideo-translator
+
+
 Installation
 ------------
 
@@ -14,12 +20,12 @@ Aliasing `msg.nicovideo.jp` to localhost
 
 To make the translator to intercept comments from Nico Nico comment server,
 you have to alias Nico Nico comment server domain (`msg.nicovideo.jp`) to
-your localhost (`127.0.0.1`).  Open your [hosts file][1] using text editor
+your localhost (`127.0.0.1`).  Open your [hosts file][2] using text editor
 (you probably need administrator permission), and then add the following line:
 
     127.0.0.1    msg.nicovideo.jp
 
-[1]: http://en.wikipedia.org/wiki/Hosts_%28file%29
+[2]: http://en.wikipedia.org/wiki/Hosts_%28file%29
 
 
 Proxy server
@@ -39,15 +45,15 @@ You can terminate the server by pressing Ctrl-C.
 Open source
 -----------
 
-It's written by [Hong Minhee][2], and distributed under [AGPLv3][].
-You can find the source code from the [Git repository][3]:
+It's written by [Hong Minhee][3], and distributed under [AGPLv3][].
+You can find the source code from the [Git repository][4]:
 
     $ git clone git://github.com/dahlia/nicovideo-translator
 
-Please report bugs to the [issue tracker][4] if you find.
+Please report bugs to the [issue tracker][5] if you find.
 Pull requests welcome!
 
-[2]: http://hongminhee.org/
-[3]: https://github.com/dahlia/nicovideo-translator
-[4]: https://github.com/dahlia/nicovideo-translator/issues
+[3]: http://hongminhee.org/
+[4]: https://github.com/dahlia/nicovideo-translator
+[5]: https://github.com/dahlia/nicovideo-translator/issues
 [AGPLv3]: http://www.gnu.org/licenses/agpl-3.0.html

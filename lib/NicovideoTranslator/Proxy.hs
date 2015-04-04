@@ -87,7 +87,7 @@ request "GET" = \options url _ -> getWith options url
 request "POST" = postWith
 request "PUT" = putWith
 request "DELETE" = \options url _ -> deleteWith options url
-request _= \_ _ _ -> ioError $ userError $ "unsupported method"
+request _ = \_ _ _ -> ioError $ userError $ "unsupported method"
 
 translateResponse :: ISO639_1 -> LB.ByteString -> IO LB.ByteString
 translateResponse lang response = case parseLBS def response of

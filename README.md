@@ -41,6 +41,11 @@ you watch Nico Nico videos.  You can invoke the proxy server using CLI
 
 You can terminate the server by pressing Ctrl-C.
 
+It can optionally take the target language which is a two-letter
+e.g. `en`, `ko` through `-l`/`--language` option:
+
+    $ nicovideo-translator --language ko
+
 
 Open source
 -----------

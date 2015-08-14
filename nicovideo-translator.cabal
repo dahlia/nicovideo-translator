@@ -1,5 +1,5 @@
 name:                nicovideo-translator
-version:             0.1.0.0
+version:             0.1.0.1
 synopsis:            Nico Nico Douga (ニコニコ動画) Comment Translator
 homepage:            https://github.com/dahlia/nicovideo-translator
 bug-reports:         https://github.com/dahlia/nicovideo-translator/issues

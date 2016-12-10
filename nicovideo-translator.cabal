@@ -6,8 +6,8 @@ bug-reports:         https://github.com/dahlia/nicovideo-translator/issues
 license:             AGPL-3
 license-file:        LICENSE
 author:              Hong Minhee
-maintainer:          hongminhee@member.fsf.org
-copyright:           (c) 2015 Hong Minhee
+maintainer:          hong.minhee@gmail.com
+copyright:           (c) 2015–2016 Hong Minhee
 stability:           alpha
 build-type:          Simple
 extra-source-files:  README.md

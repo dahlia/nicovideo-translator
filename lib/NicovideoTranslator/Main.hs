@@ -21,9 +21,12 @@ import Network.Wai.Handler.Warp (Port, run)
 import System.Console.CmdArgs ( argPos
                               , cmdArgs
                               , def
+                              , details
                               , explicit
                               , help
                               , name
+                              , program
+                              , summary
                               , typ
                               , (&=)
                               )
@@ -74,6 +77,10 @@ translateCmdArgs lang =
                            &= help "Port number to listen [80]"
                , apiKey' = def &= argPos 0 &= typ "API_KEY"
                }
+        &= program "nicovideo-translator"
+        &= summary "Nico Nico Douga (ニコニコ動画) Comment Translator"
+        &= details
+            ["It takes a Google Translate API key as its first argument."]
 
 main :: IO ()
 main = do

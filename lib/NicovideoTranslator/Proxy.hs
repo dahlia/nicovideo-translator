@@ -1,9 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
 module NicovideoTranslator.Proxy
-    ( ProxyConfiguration(ProxyConfiguration)
+    ( ProxyConfiguration ( ProxyConfiguration
+                         , apiKey
+                         , language
+                         , upstreamHost
+                         )
     , app
-    , language
-    , upstreamHost
     ) where
 
 import Data.List (find)
@@ -29,11 +31,13 @@ import Text.XML (Document(Document), Element(Element),
                  def, elementNodes, parseLBS, renderLBS)
 import Text.XML.Cursor (content, element, fromDocument, node, ($//), (&//))
 
-import NicovideoTranslator.Translate (translateMultiple)
+import NicovideoTranslator.Translate (ApiKey, translate)
 
-data ProxyConfiguration = ProxyConfiguration { language :: ISO639_1
-                                             , upstreamHost :: Text
-                                             }
+data ProxyConfiguration =
+    ProxyConfiguration { language :: ISO639_1
+                       , upstreamHost :: Text
+                       , apiKey :: ApiKey
+                       }
 
 app :: ProxyConfiguration -> Application
 app config req respond =
@@ -70,7 +74,9 @@ proxyApp config url req respond = do
         rHeaders = (response ^. responseHeaders)
         toBeTranslated = method == "POST" && mimetype == "text/xml"
     translated <- if toBeTranslated
-                  then translateResponse (language config) rBody
+                  then translateResponse (apiKey config)
+                                         (language config)
+                                         rBody
                   else return rBody
     let headers = [ (name, value)
                   | (name, value) <- rHeaders
@@ -95,15 +101,15 @@ request "PUT" = putWith
 request "DELETE" = \options url _ -> deleteWith options url
 request _ = \_ _ _ -> ioError $ userError $ "unsupported method"
 
-translateResponse :: ISO639_1 -> LB.ByteString -> IO LB.ByteString
-translateResponse lang response = case parseLBS def response of
+translateResponse :: ApiKey -> ISO639_1 -> LB.ByteString -> IO LB.ByteString
+translateResponse apiKey' lang response = case parseLBS def response of
     Left _ -> return response
-    Right doc -> do translatedDoc <- translateXml lang doc
+    Right doc -> do translatedDoc <- translateXml apiKey' lang doc
                     return $ renderLBS def translatedDoc
 
-translateXml :: ISO639_1 -> Document -> IO Document
-translateXml lang doc = do
-    translatedTexts <- translateMultiple lang texts
+translateXml :: ApiKey -> ISO639_1 -> Document -> IO Document
+translateXml apiKey' lang doc = do
+    translatedTexts <- translate apiKey' lang texts
     let translatedElems = [ (el, el { elementNodes = [NodeContent text] })
                           | (el, text) <- zip elems translatedTexts ]
     return $ transformXml doc translatedElems

@@ -35,30 +35,34 @@ The translator behaves as a proxy server, so it has to be running while
 you watch Nico Nico videos.  You can invoke the proxy server using CLI
 (you probably need administrator permission to listen 80 port):
 
-    $ nicovideo-translator
+    $ nicovideo-translator EiP3NSgLid81OjSwpOMkgV0rzD9SLHRqwqUwx2r
     Running on http://0.0.0.0:80/ (Press ^C to quit)
     Upstream: nmsg.nicovideo.jp (202.248.110.173)
+
+Note that it takes a [Google Translate API][3] key as its first argument.
 
 You can terminate the server by pressing Ctrl-C.
 
 It can optionally take the target language which is a two-letter
-e.g. `en`, `ko` through `-l`/`--language` option:
+e.g. `en`, `ko` through `-l`/`--lang`/`--language` option:
 
-    $ nicovideo-translator --language ko
+    $ nicovideo-translator -l ko
+
+[3]: https://cloud.google.com/translate/
 
 
 Open source
 -----------
 
-It's written by [Hong Minhee][3], and distributed under [AGPLv3][].
-You can find the source code from the [Git repository][4]:
+It's written by [Hong Minhee][4], and distributed under [AGPLv3][].
+You can find the source code from the [Git repository][5]:
 
     $ git clone git://github.com/dahlia/nicovideo-translator
 
-Please report bugs to the [issue tracker][5] if you find.
+Please report bugs to the [issue tracker][6] if you find.
 Pull requests welcome!
 
-[3]: http://hongminhee.org/
-[4]: https://github.com/dahlia/nicovideo-translator
-[5]: https://github.com/dahlia/nicovideo-translator/issues
+[4]: https://hongminhee.org/
+[5]: https://github.com/dahlia/nicovideo-translator
+[6]: https://github.com/dahlia/nicovideo-translator/issues
 [AGPLv3]: http://www.gnu.org/licenses/agpl-3.0.html

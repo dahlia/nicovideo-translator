@@ -18,13 +18,28 @@ import Data.Typeable (Typeable)
 import Network.DNS.Resolver (defaultResolvConf, makeResolvSeed, withResolver)
 import Network.DNS.Lookup (lookupA)
 import Network.Wai.Handler.Warp (Port, run)
-import System.Console.CmdArgs (cmdArgs, help, typ, (&=))
+import System.Console.CmdArgs ( argPos
+                              , cmdArgs
+                              , def
+                              , explicit
+                              , help
+                              , name
+                              , typ
+                              , (&=)
+                              )
 import System.Locale.SetLocale (Category(LC_CTYPE), setLocale)
 
-import NicovideoTranslator.Proxy (ProxyConfiguration(ProxyConfiguration), app)
+import NicovideoTranslator.Proxy ( ProxyConfiguration ( ProxyConfiguration
+                                                      , apiKey
+                                                      , language
+                                                      , upstreamHost
+                                                      )
+                                 , app
+                                 )
 
 data Translator = Translator { port :: Port
-                             , language :: String
+                             , language' :: String
+                             , apiKey' :: String
                              } deriving (Show, Data, Typeable)
 
 formatIoError :: Params ps => Format -> ps -> IO a
@@ -49,17 +64,22 @@ defaultUpstreamHost = "nmsg.nicovideo.jp"
 
 translateCmdArgs :: String -> Translator
 translateCmdArgs lang =
-    Translator { language = lang &= typ "LANG"
-                                 &= help "Target language to translate to [en]"
+    Translator { language' = lang &= explicit
+                                  &= name "language"
+                                  &= name "lang"
+                                  &= name "l"
+                                  &= typ "LANG"
+                                  &= help "Target language to translate to [en]"
                , port = 80 &= typ "PORT"
                            &= help "Port number to listen [80]"
+               , apiKey' = def &= argPos 0 &= typ "API_KEY"
                }
 
 main :: IO ()
 main = do
     currentLang <- catchIOError currentLanguage (\_ -> return L.EN)
     opts <- cmdArgs $ translateCmdArgs $ L.language currentLang
-    lang <- readLanguageCode $ language opts
+    lang <- readLanguageCode $ language' opts
     let portNum = port opts
     hPutStrLn stdout $ LT.toStrict $
         format "Running on http://0.0.0.0:{}/ (Press ^C to quit)" (Only portNum)
@@ -68,13 +88,17 @@ main = do
         \resolver -> lookupA resolver (encodeUtf8 defaultUpstreamHost)
     case resolution of
         Right (resolvedHost:_) ->
-            let upstreamHost = T.pack $ show resolvedHost
+            let upstreamHost' = T.pack $ show resolvedHost
             in do
                 hPutStrLn stdout $ T.concat ["Upstream: "
                                             , defaultUpstreamHost
-                                            , " (", upstreamHost, ")"
+                                            , " (", upstreamHost', ")"
                                             ]
-                run portNum $ app (ProxyConfiguration lang upstreamHost)
+                let conf = ProxyConfiguration { language = lang
+                                              , upstreamHost = upstreamHost'
+                                              , apiKey = T.pack $ apiKey' opts
+                                              }
+                run portNum $ app conf
         _ -> hPutStrLn stderr $ T.concat [ "error: failed to resolve "
                                          , defaultUpstreamHost
                                          ]

@@ -45,7 +45,7 @@ currentLanguage = do
         Nothing -> formatIoError "locale is not set" ()
 
 defaultUpstreamHost :: T.Text
-defaultUpstreamHost = "msg.nicovideo.jp"
+defaultUpstreamHost = "nmsg.nicovideo.jp"
 
 translateCmdArgs :: String -> Translator
 translateCmdArgs lang =

@@ -15,15 +15,15 @@ You can install it using `cabal`:
     $ cabal install nicovideo-translator
 
 
-Aliasing `msg.nicovideo.jp` to localhost
-----------------------------------------
+Aliasing `nmsg.nicovideo.jp` to localhost
+-----------------------------------------
 
 To make the translator to intercept comments from Nico Nico comment server,
-you have to alias Nico Nico comment server domain (`msg.nicovideo.jp`) to
+you have to alias Nico Nico comment server domain (`nmsg.nicovideo.jp`) to
 your localhost (`127.0.0.1`).  Open your [hosts file][2] using text editor
 (you probably need administrator permission), and then add the following line:
 
-    127.0.0.1    msg.nicovideo.jp
+    127.0.0.1    nmsg.nicovideo.jp
 
 [2]: http://en.wikipedia.org/wiki/Hosts_%28file%29
 
@@ -37,7 +37,7 @@ you watch Nico Nico videos.  You can invoke the proxy server using CLI
 
     $ nicovideo-translator
     Running on http://0.0.0.0:80/ (Press ^C to quit)
-    Upstream: msg.nicovideo.jp (202.248.110.173)
+    Upstream: nmsg.nicovideo.jp (202.248.110.173)
 
 You can terminate the server by pressing Ctrl-C.
 

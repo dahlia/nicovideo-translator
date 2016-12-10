@@ -72,7 +72,13 @@ proxyApp config url req respond = do
     translated <- if toBeTranslated
                   then translateResponse (language config) rBody
                   else return rBody
-    respond $ responseLBS rStatus rHeaders translated
+    let headers = [ (name, value)
+                  | (name, value) <- rHeaders
+                  , name /= "content-length"
+                  ]
+        -- Content-Length becomes invalid since the translated text doesn't
+        -- have the same length to its source text
+    respond $ responseLBS rStatus headers translated
   where
     method = requestMethod req
     headerList = requestHeaders req

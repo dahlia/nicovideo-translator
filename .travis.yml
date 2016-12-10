@@ -1,6 +1,18 @@
-language: haskell
-ghc: 7.8.3
-install:
-- cabal install
+sudo: false
+addons:
+  apt:
+    sources: [hvr-ghc]
+    packages: [ghc-8.0.1, libgmp10]
+cache:
+  directories:
+  - $HOME/.stack
+before_install:
+# Download and unpack the stack executable
+- mkdir -p ~/.local/bin
+- export PATH=$HOME/.local/bin:$PATH
+- travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+- stack --no-terminal setup
+- stack --no-terminal install --only-dependencies
 script:
-- cabal build
+- stack --no-terminal build
+- stack exec -- nicovideo-translator --help

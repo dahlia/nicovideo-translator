@@ -1,12 +1,13 @@
 sudo: false
+language: haskell
 addons:
   apt:
     sources: [hvr-ghc]
-    packages: [ghc-8.0.1, libgmp10]
+    packages: [ghc-8.0.1, libgmp10, upx-ucl]
 cache:
   directories:
   - $HOME/.stack
-before_install:
+install:
 # Download and unpack the stack executable
 - mkdir -p ~/.local/bin
 - export PATH=$HOME/.local/bin:$PATH
@@ -16,3 +17,10 @@ before_install:
 script:
 - stack --no-terminal build
 - stack exec -- nicovideo-translator --help
+deploy:
+- provider: hackage
+  username: hongminhee
+  password:
+    secure: "u5yqHxvOCkzWZ3CrcZwYFBFtFvgGX9LdWfa35Pve8upsxxE1QfqnAA2lsdIK/VP+FaPlUzfwJC7AB5TZ8P/0NGZ+TfNPsjnAF7Tz5uA89Kjfu1EsaSe3YU2YBq9D6cJf/rJSDtU7gpHvFVCVvT/ElE7BUfYiuSWUNm2W3fR0I+0="
+  on:
+    tags: true

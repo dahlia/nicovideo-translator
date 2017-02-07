@@ -2,9 +2,31 @@ Nico Nico Douga (ニコニコ動画) Comment Translator
 =================================================
 
 [![Build Status][0]][1]
+[![Docker Automated Build][2]][3]
 
 [0]: https://travis-ci.org/dahlia/nicovideo-translator.svg
 [1]: https://travis-ci.org/dahlia/nicovideo-translator
+[2]: https://img.shields.io/docker/automated/dahlia/nicovideo-translator.svg
+[3]: https://hub.docker.com/r/dahlia/nicovideo-translator/
+
+
+Quick start using Docker
+------------------------
+
+The official Docker image is provided:
+
+    $ docker pull dahlia/nicovideo-translator
+
+You need to provide a required environment variable `GOOGLE_TRANSLATE_API_KEY`
+to use Google Translate API, and may want to set an optional environment
+variable `LANG` which means the target language.  The exposed port number is
+8080:
+
+    $ docker run \
+        -e GOOGLE_TRANSLATE_API_KEY=EiP3NSgLid81OjSwpOMkgV0rzD9SLHRqwqUwx2r \
+        -e LANG=ko \
+        -p 80:8080 \
+        dahlia/nicovideo-translator
 
 
 Installation

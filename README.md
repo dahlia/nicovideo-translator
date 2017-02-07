@@ -3,11 +3,14 @@ Nico Nico Douga (ニコニコ動画) Comment Translator
 
 [![Build Status][0]][1]
 [![Docker Automated Build][2]][3]
+[![Hackage][4]][5]
 
 [0]: https://travis-ci.org/dahlia/nicovideo-translator.svg
 [1]: https://travis-ci.org/dahlia/nicovideo-translator
 [2]: https://img.shields.io/docker/automated/dahlia/nicovideo-translator.svg
 [3]: https://hub.docker.com/r/dahlia/nicovideo-translator/
+[4]: https://img.shields.io/hackage/v/nicovideo-translator.svg
+[5]: https://hackage.haskell.org/package/nicovideo-translator
 
 
 Quick start using Docker
@@ -42,12 +45,12 @@ Aliasing `nmsg.nicovideo.jp` to localhost
 
 To make the translator to intercept comments from Nico Nico comment server,
 you have to alias Nico Nico comment server domain (`nmsg.nicovideo.jp`) to
-your localhost (`127.0.0.1`).  Open your [hosts file][2] using text editor
+your localhost (`127.0.0.1`).  Open your [hosts file][6] using text editor
 (you probably need administrator permission), and then add the following line:
 
     127.0.0.1    nmsg.nicovideo.jp
 
-[2]: http://en.wikipedia.org/wiki/Hosts_%28file%29
+[6]: http://en.wikipedia.org/wiki/Hosts_%28file%29
 
 
 Proxy server
@@ -61,7 +64,7 @@ you watch Nico Nico videos.  You can invoke the proxy server using CLI
     Running on http://0.0.0.0:80/ (Press ^C to quit)
     Upstream: nmsg.nicovideo.jp (202.248.110.173)
 
-Note that it takes a [Google Translate API][3] key as its first argument.
+Note that it takes a [Google Translate API][7] key as its first argument.
 
 You can terminate the server by pressing Ctrl-C.
 
@@ -70,21 +73,21 @@ e.g. `en`, `ko` through `-l`/`--lang`/`--language` option:
 
     $ nicovideo-translator -l ko
 
-[3]: https://cloud.google.com/translate/
+[7]: https://cloud.google.com/translate/
 
 
 Open source
 -----------
 
-It's written by [Hong Minhee][4], and distributed under [AGPLv3][].
-You can find the source code from the [Git repository][5]:
+It's written by [Hong Minhee][8], and distributed under [AGPLv3][].
+You can find the source code from the [Git repository][9]:
 
     $ git clone git://github.com/dahlia/nicovideo-translator
 
-Please report bugs to the [issue tracker][6] if you find.
+Please report bugs to the [issue tracker][10] if you find.
 Pull requests welcome!
 
-[4]: https://hongminhee.org/
-[5]: https://github.com/dahlia/nicovideo-translator
-[6]: https://github.com/dahlia/nicovideo-translator/issues
+[8]: https://hongminhee.org/
+[9]: https://github.com/dahlia/nicovideo-translator
+[10]: https://github.com/dahlia/nicovideo-translator/issues
 [AGPLv3]: http://www.gnu.org/licenses/agpl-3.0.html

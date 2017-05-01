@@ -15,12 +15,27 @@ install:
 - stack --no-terminal setup
 - stack --no-terminal install --only-dependencies
 script:
+- "echo '                       -static' >> nicovideo-translator.cabal"
 - stack --no-terminal build
 - stack exec -- nicovideo-translator --help
+before_deploy:
+- stack build --no-terminal --copy-bins
+- mkdir -p /tmp/sbuild
+- export NIGHTLY_BINARY_PATH="/tmp/sbuild/nicovideo-translator-$(uname -s | tr '[A-Z]' '[a-z]')-$(uname -m)"
+- cp "$(stack path --local-bin-path)/nicovideo-translator" "$NIGHTLY_BINARY_PATH"
 deploy:
 - provider: hackage
   username: hongminhee
   password:
     secure: "u5yqHxvOCkzWZ3CrcZwYFBFtFvgGX9LdWfa35Pve8upsxxE1QfqnAA2lsdIK/VP+FaPlUzfwJC7AB5TZ8P/0NGZ+TfNPsjnAF7Tz5uA89Kjfu1EsaSe3YU2YBq9D6cJf/rJSDtU7gpHvFVCVvT/ElE7BUfYiuSWUNm2W3fR0I+0="
   on:
+    tags: true
+- provider: releases
+  api_key:
+    secure: "LHsdv5TAU2fhelUl+lO547DngKCHFXwAE3OoT8eiUMLOUGfOXojpxZJW4THQNNkklxEuFMi98k7fQq76RksKg64fQNMP8UdHN5KO8KFkq9Td6WyLqnNXUsG8VspA1/OPMiDnTd11q7A+g75X5coeZDxq68qgwrwn0hUvJs0IRSk="
+  skip_cleanup: true
+  file_glob: true
+  file: /tmp/sbuild/*
+  on:
+    repo: dahlia/nicovideo-translator
     tags: true

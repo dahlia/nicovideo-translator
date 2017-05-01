@@ -23,6 +23,7 @@ before_deploy:
 - mkdir -p /tmp/sbuild
 - export NIGHTLY_BINARY_PATH="/tmp/sbuild/nicovideo-translator-$(uname -s | tr '[A-Z]' '[a-z]')-$(uname -m)"
 - cp "$(stack path --local-bin-path)/nicovideo-translator" "$NIGHTLY_BINARY_PATH"
+- upx-ucl -9 "$NIGHTLY_BINARY_PATH"
 deploy:
 - provider: hackage
   username: hongminhee

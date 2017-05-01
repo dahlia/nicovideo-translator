@@ -1,5 +1,5 @@
 name:                nicovideo-translator
-version:             0.3.0.1
+version:             0.3.0.2
 synopsis:            Nico Nico Douga (ニコニコ動画) Comment Translator
 description:         Translate comments (written in Japanese) on
                      Nico Nico Douga (ニコニコ動画) to your language.
